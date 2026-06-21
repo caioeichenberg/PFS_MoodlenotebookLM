@@ -5,7 +5,7 @@ from notebooklm import NotebookLMClient, InfographicOrientation, InfographicDeta
 async def main():
     async with NotebookLMClient.from_storage() as client:
 
-        # 1) Criar notebook e adicionar a fonte
+        # Cria notebook e adiciona uma fonte
         notebook = await client.notebooks.create("Estudo - Resumos Automáticos")
         print(f"Notebook criado: {notebook.id}")
 
@@ -16,14 +16,14 @@ async def main():
         )
         print("Fonte adicionada e processada.\n")
 
-        # 2) Disparar a geração do PODCAST (áudio)
+        #inicia a geração do PODCAST (áudio)
         print("Iniciando geração do resumo em áudio (podcast)...")
         audio_status = await client.artifacts.generate_audio(
             notebook.id,
             instructions="Resuma os pontos principais do material de forma clara e objetiva.",
         )
 
-        # 3) Disparar a geração do INFOGRÁFICO
+        # inicia a geração do INFOGRÁFICO
         print("Iniciando geração do resumo em infográfico...")
         infografico_status = await client.artifacts.generate_infographic(
             notebook.id,
@@ -32,7 +32,7 @@ async def main():
             detail_level=InfographicDetail.STANDARD,  # nome correto do parâmetro: detail_level
         )
 
-        # 4) Esperar as duas gerações terminarem (cada uma pode levar minutos)
+        # Esperar as duas gerações terminarem (cada uma pode levar muitos minutos)
         print("\nAguardando a conclusão das gerações (pode levar alguns minutos)...")
         audio_final = await client.artifacts.wait_for_completion(
             notebook.id, audio_status.task_id, timeout=900
@@ -41,7 +41,7 @@ async def main():
             notebook.id, infografico_status.task_id, timeout=900
         )
 
-        # 5) Baixar os arquivos finais para o disco
+        # Baixar os arquivos finais para o disco
         if audio_final.is_complete:
             caminho_audio = await client.artifacts.download_audio(
                 notebook.id, "resumo_podcast.mp3"
