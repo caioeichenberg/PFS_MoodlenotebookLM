@@ -7,8 +7,15 @@ Esse projeto busca automatizar a criação de resumos por meio da IA notebookLM,
 # PRÉ REQUISITOS
 instalar as seguintes dependências para que o algoritmo possa funcionar da maneira desejada
 
-pip install requests beautifulsoup4
-
 pip install "notebooklm-py[browser]"
-
 playwright install chromium
+
+ou
+
+
+pip install notebooklm-py
+
+e depois rodar o seguinte comando no terminal. Sem ele não é possível acessar seu login do notebooklm
+
+notebooklm login
+
