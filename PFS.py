@@ -24,6 +24,7 @@ import os
 import re
 import sys
 import time
+import shutil
 import urllib.parse
 from pathlib import Path
 
@@ -193,7 +194,10 @@ def create_driver() -> webdriver.Remote:
       3. Firefox via webdriver-manager (baixa o driver automaticamente)
       4. Chrome via webdriver-manager
     """
-
+    if DOWNLOAD_DIR.exists():
+        shutil.rmtree(DOWNLOAD_DIR)
+    DOWNLOAD_DIR.mkdir(parents=True, exist_ok=True)
+    
     # ── Tentativa 1: Firefox nativo ──────────────────────────────────────
     try:
         opts = webdriver.FirefoxOptions()
