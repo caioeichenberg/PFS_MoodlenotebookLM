@@ -26,7 +26,6 @@ import sys
 import time
 import shutil
 import urllib.parse
-from pathlib import Path
 
 # ── Importações obrigatórias ─────────────────────────────────────────────────
 for pkg, install in [("selenium", "selenium"), ("bs4", "beautifulsoup4"), ("requests", "requests")]:
